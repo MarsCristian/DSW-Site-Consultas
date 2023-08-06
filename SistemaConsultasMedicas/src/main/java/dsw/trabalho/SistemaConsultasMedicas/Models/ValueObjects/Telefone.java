@@ -25,14 +25,14 @@ public class Telefone {
         try{
             //value cannot be negative
             if(Long.parseLong(valor) <= 0){
-                throw new PhoneNumberParsingException("The phone number cannot be negative: " + valor);
+                throw new PhoneNumberParsingException("The phone number cannot be negative: " + valor);//todo criar mensagem de telefone negativo
             }
             final var telefone = PHONE_NUMBER_UTIL.parse(valor,"BR");
             final String telefoneFormatado = PHONE_NUMBER_UTIL.format(telefone, E164);
 
             return telefoneFormatado.substring(1);
         } catch (NumberParseException | NumberFormatException e) { //invalid number
-            throw new PhoneNumberParsingException("The phone number isn't valid: " + valor, e);
+            throw new PhoneNumberParsingException("The phone number isn't valid: " + valor, e);//todo criar mensagem de telefone invalido
         }
     }
 }
