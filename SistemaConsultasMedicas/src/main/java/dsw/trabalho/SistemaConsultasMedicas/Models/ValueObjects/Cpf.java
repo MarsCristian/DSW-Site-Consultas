@@ -1,5 +1,6 @@
 package dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects;
 
+import dsw.trabalho.SistemaConsultasMedicas.Models.Exceptions.CPFParsingException;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Value;
 
@@ -15,7 +16,7 @@ public class Cpf {
     }
 
 
-    public boolean validarCPF(String cpf) {
+    private  String validarCPF(String cpf) {
         try{
             String cpfSomenteDigitos = cpf.replaceAll("\\D", "");
 
@@ -32,9 +33,14 @@ public class Cpf {
             int digito1 = calcularDigito(cpfSomenteDigitos.substring(0, 9), PESO_CPF);
             int digito2 = calcularDigito(cpfSomenteDigitos.substring(0, 9) + digito1, PESO_CPF);
 
-            return cpfSomenteDigitos.equals(cpfSomenteDigitos.substring(0, 9) + digito1 + digito2);
-        }catch(){
+            if(!cpfSomenteDigitos.equals(cpfSomenteDigitos.substring(0, 9) + digito1 + digito2)){
+                throw new CPFParsingException("CPF INVALIDO"+cpf);//todo implementar Exception do cpf
+            }
 
+            return cpfSomenteDigitos;
+
+        }catch (NumberFormatException e) { //invalid number
+            throw new CPFParsingException("cpf is invalid: " + valor, e);//todo criar mensagem de telefone invalido
         }
 
     }
