@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Table(name = "pacientes")
 
-public class Paciente {
+public class PacienteModel {
     //todo colocar aqui cpf = id, telefone, sexo, data de nascimento
     @Id
     private UUID id;
