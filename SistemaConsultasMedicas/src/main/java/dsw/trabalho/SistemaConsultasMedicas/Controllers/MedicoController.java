@@ -43,4 +43,27 @@ public class MedicoController {
         return ResponseEntity.status(HttpStatus.OK).body(medico0.get());
     }
 
+    @PutMapping("/medicos/{id}")//upddating
+    public ResponseEntity<Object> updateMedico(@PathVariable(value= "id") UUID id, @RequestBody @Valid MedicoRecordDto medicoRecordDto) {
+
+        Optional<MedicoModel> medico0 = medicoRepository.findById(id);
+        if (medico0.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Medico nao encontrado.");//todo criar mensagem
+        }
+        var medicoModel = medico0.get();//pega o antigfo
+        BeanUtils.copyProperties(medicoRecordDto, medicoModel);//converte pro novo
+        return ResponseEntity.status(HttpStatus.OK).body(medicoRepository.save(medicoModel));//salva
+    }
+
+    @DeleteMapping("/medicos/{id}")//deleting
+    public ResponseEntity<Object> updateMedico(@PathVariable(value= "id") UUID id) {
+
+        Optional<MedicoModel> medico0 = medicoRepository.findById(id);
+        if (medico0.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Medico nao encontrado.");//todo criar mensagem
+        }
+        medicoRepository.delete(medico0.get());
+        return ResponseEntity.status(HttpStatus.OK).body("Deletado corretamente");//salva
+    }
+
 }
