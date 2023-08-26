@@ -2,6 +2,7 @@ package dsw.trabalho.SistemaConsultasMedicas.Models.Entities;
 
 
 import jakarta.persistence.*;
+import org.springframework.hateoas.RepresentationModel;
 
 
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "TB_MEDICOS")
-public class MedicoModel implements Serializable {
+public class MedicoModel extends RepresentationModel<MedicoModel> implements Serializable {
     //todo crm e especialidade
     private static final long serialVersionUID = 1L;
 

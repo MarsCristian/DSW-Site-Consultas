@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 public class MedicoController {
 
@@ -30,7 +33,14 @@ public class MedicoController {
 
     @GetMapping("/medicos")
     public ResponseEntity<List<MedicoModel>> getAllMedicos(){
-        return ResponseEntity.status(HttpStatus.OK).body(medicoRepository.findAll());
+        List<MedicoModel> medicoModelList = medicoRepository.findAll();
+
+        //pra cada produto, obtem o id, .add pra construir link, basicamente usa o getOneMedico
+        for(MedicoModel medico : medicoModelList){
+            UUID id = medico.getIdMedico();
+            medico.add(linkTo(methodOn(MedicoController.class).getOneMedico(id)).withSelfRel());
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(medicoModelList);
     }
 
     @GetMapping("/medicos/{id}")
