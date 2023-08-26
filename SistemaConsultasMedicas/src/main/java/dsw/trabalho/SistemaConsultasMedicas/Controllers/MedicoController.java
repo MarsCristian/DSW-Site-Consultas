@@ -9,12 +9,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 public class MedicoController {
@@ -33,4 +32,15 @@ public class MedicoController {
     public ResponseEntity<List<MedicoModel>> getAllMedicos(){
         return ResponseEntity.status(HttpStatus.OK).body(medicoRepository.findAll());
     }
+
+    @GetMapping("/medicos/{id}")
+    public ResponseEntity<Object> getOneMedico(@PathVariable(value= "id") UUID id){
+
+        Optional<MedicoModel> medico0 = medicoRepository.findById(id);
+        if(medico0.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Medico nao encontrado.");//todo criar mensagem
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(medico0.get());
+    }
+
 }
