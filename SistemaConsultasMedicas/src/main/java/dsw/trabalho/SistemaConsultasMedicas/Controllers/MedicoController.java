@@ -50,6 +50,7 @@ public class MedicoController {
         if(medico0.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Medico nao encontrado.");//todo criar mensagem
         }
+        medico0.get().add(linkTo(methodOn(MedicoController.class).getAllMedicos()).withRel("Medicos List"));
         return ResponseEntity.status(HttpStatus.OK).body(medico0.get());
     }
 
