@@ -2,7 +2,6 @@ package dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects;
 
 
 import dsw.trabalho.SistemaConsultasMedicas.Models.Exceptions.EmailParsingException;
-import dsw.trabalho.SistemaConsultasMedicas.Models.Exceptions.PhoneNumberParsingException;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Value;
 
@@ -40,7 +39,4 @@ public class Email {
             throw new EmailParsingException("email isn't valid: " + email, e);//todo criar mensagem de telefone negativo
         }
     }
-
-
-
 }
