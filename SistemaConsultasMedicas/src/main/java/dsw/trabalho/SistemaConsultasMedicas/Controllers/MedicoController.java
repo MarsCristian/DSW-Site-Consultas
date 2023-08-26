@@ -26,7 +26,7 @@ public class MedicoController {
 
     @PostMapping("/medicos") //create
     public ResponseEntity<MedicoModel> saveMedico(@RequestBody  @Valid MedicoRecordDto medicoRecordDto){
-        var medicoModel = new MedicoModel();
+        var medicoModel = new MedicoModel(); //todo corrigir medico model
         BeanUtils.copyProperties(medicoRecordDto,medicoModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(medicoRepository.save(medicoModel));//uso do http 201
     }
