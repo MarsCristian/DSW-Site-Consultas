@@ -56,7 +56,7 @@ public class MedicoController {
     }
 
     @DeleteMapping("/medicos/{id}")//deleting
-    public ResponseEntity<Object> updateMedico(@PathVariable(value= "id") UUID id) {
+    public ResponseEntity<Object> deleteMedico(@PathVariable(value= "id") UUID id) {
 
         Optional<MedicoModel> medico0 = medicoRepository.findById(id);
         if (medico0.isEmpty()) {
