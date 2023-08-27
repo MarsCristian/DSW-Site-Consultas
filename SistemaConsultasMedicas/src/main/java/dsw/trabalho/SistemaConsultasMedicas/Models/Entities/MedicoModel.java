@@ -6,6 +6,7 @@ import org.springframework.hateoas.RepresentationModel;
 
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -23,6 +24,9 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
 
     private String email;
     private String senha;
+
+    @OneToMany(mappedBy = "medico")
+    private List<ConsultaModel> consultas;
 
 
     public UUID getIdMedico() {
@@ -72,4 +76,6 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+
 }
