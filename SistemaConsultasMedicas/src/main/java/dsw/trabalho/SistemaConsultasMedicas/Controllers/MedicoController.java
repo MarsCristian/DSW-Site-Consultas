@@ -24,14 +24,14 @@ public class MedicoController {
     @Autowired
     MedicoRepository medicoRepository;//ponto de injecaom
 
-    @PostMapping("/medicos") //create
+    @PostMapping("/profissionais") //create
     public ResponseEntity<MedicoModel> saveMedico(@RequestBody  @Valid MedicoRecordDto medicoRecordDto){
         var medicoModel = new MedicoModel();
         BeanUtils.copyProperties(medicoRecordDto,medicoModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(medicoRepository.save(medicoModel));//uso do http 201
     }
 
-    @GetMapping("/medicos")
+    @GetMapping("/profissionais")
     public ResponseEntity<List<MedicoModel>> getAllMedicos(){
         List<MedicoModel> medicoModelList = medicoRepository.findAll();
 
@@ -43,7 +43,7 @@ public class MedicoController {
         return ResponseEntity.status(HttpStatus.OK).body(medicoModelList);
     }
 
-    @GetMapping("/medicos/{id}")
+    @GetMapping("/profissionais/{id}")
     public ResponseEntity<Object> getOneMedico(@PathVariable(value= "id") UUID id){
 
         Optional<MedicoModel> medico0 = medicoRepository.findById(id);
@@ -54,7 +54,19 @@ public class MedicoController {
         return ResponseEntity.status(HttpStatus.OK).body(medico0.get());
     }
 
-    @PutMapping("/medicos/{id}")//upddating
+    @GetMapping("/profissionais/especialidades/{nome}")
+    public ResponseEntity<Object> getMedicoByEspecialidade(@PathVariable(value= "nome") String nome){
+        List<MedicoModel> medicoModelList = medicoRepository.findByEspecialidade(nome);
+        //pra cada produto, obtem o id, .add pra construir link, basicamente usa o getOneMedico
+        for(MedicoModel medico : medicoModelList){
+            UUID id = medico.getIdMedico();
+            medico.add(linkTo(methodOn(MedicoController.class).getOneMedico(id)).withSelfRel());
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(medicoModelList);
+    }
+
+
+    @PutMapping("/profissionais/{id}")//upddating
     public ResponseEntity<Object> updateMedico(@PathVariable(value= "id") UUID id, @RequestBody @Valid MedicoRecordDto medicoRecordDto) {
 
         Optional<MedicoModel> medico0 = medicoRepository.findById(id);
@@ -66,7 +78,7 @@ public class MedicoController {
         return ResponseEntity.status(HttpStatus.OK).body(medicoRepository.save(medicoModel));//salva
     }
 
-    @DeleteMapping("/medicos/{id}")//deleting
+    @DeleteMapping("/profissionais/{id}")//deleting
     public ResponseEntity<Object> deleteMedico(@PathVariable(value= "id") UUID id) {
 
         Optional<MedicoModel> medico0 = medicoRepository.findById(id);
