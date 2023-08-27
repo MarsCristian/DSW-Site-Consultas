@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name = "TB_Consulta")
+@Table(name = "TB_CONSULTA")
 public class ConsultaModel extends RepresentationModel<ConsultaModel> implements Serializable {
     //todo colocar aqui: id de medico crm, id de paciente cpf, data e hora da consulta
     private static final long serialVersionUID = 1L;
@@ -15,8 +15,12 @@ public class ConsultaModel extends RepresentationModel<ConsultaModel> implements
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    private String crmMedico;
-    private String cpfPaciente;
+    @ManyToOne
+    @JoinColumn(name = "id_medico")
+    private MedicoModel medico;
+    @ManyToOne
+    @JoinColumn(name = "id_paciente")
+    private PacienteModel paciente;
     private String dataConsulta;
     private String horarioConsulta;
 
@@ -24,13 +28,13 @@ public class ConsultaModel extends RepresentationModel<ConsultaModel> implements
 
     public void setIdConsulta(UUID id) {this.id = id;}
 
-    public String getCrmMedico() {return crmMedico;}
+    public MedicoModel getMedico() {return medico;}
 
-    public void setCrmMedico(String crmMedico) {this.crmMedico = crmMedico;}
+    public void setMedico(MedicoModel medico) {this.medico = medico;}
 
-    public String getCpfPaciente() {return cpfPaciente;}
+    public PacienteModel getPaciente() {return paciente;}
 
-    public void setCpfPaciente(String cpfPaciente) {this.cpfPaciente = cpfPaciente;}
+    public void setPaciente(PacienteModel paciente) {this.paciente = paciente;}
 
     public String getDataConsulta() {return dataConsulta;}
 
