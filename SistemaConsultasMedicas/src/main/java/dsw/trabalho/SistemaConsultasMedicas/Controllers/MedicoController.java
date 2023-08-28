@@ -3,6 +3,7 @@ package dsw.trabalho.SistemaConsultasMedicas.Controllers;
 
 import dsw.trabalho.SistemaConsultasMedicas.Dtos.MedicoRecordDto;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Entities.MedicoModel;
+import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Crm;
 import dsw.trabalho.SistemaConsultasMedicas.Repositories.MedicoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -71,6 +72,16 @@ public class MedicoController {
             medico.add(linkTo(methodOn(MedicoController.class).getOneMedico(id)).withSelfRel());
         }
         return ResponseEntity.status(HttpStatus.OK).body(medicoModelList);
+    }
+
+    @GetMapping("/profissionais/crm/{nome}")
+    public ResponseEntity<Object> getMedicoByCrm(@PathVariable(value= "crm") Crm crm){
+
+        MedicoModel medicoModel = medicoRepository.findByCrm(crm);
+        UUID id = medicoModel.getIdMedico();
+        medicoModel.add(linkTo(methodOn(MedicoController.class).getOneMedico(id)).withSelfRel());
+
+        return ResponseEntity.status(HttpStatus.OK).body(medicoModel);
     }
 
 
