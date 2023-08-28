@@ -69,8 +69,7 @@ public class MedicoController {
     }
 
     @GetMapping("/profissionais/crm/{crm}")
-    public ResponseEntity<Object> getMedicoByCrm(@PathVariable(value= "crm") String crm){
-        Crm objcrm = new Crm(crm);
+    public ResponseEntity<Object> getMedicoByCrm(@PathVariable(value= "crm") Crm crm){
         MedicoModel medicoModel = medicoRepository.findByCrm(crm);
         UUID id = medicoModel.getIdMedico();
         medicoModel.add(linkTo(methodOn(MedicoController.class).getOneMedico(id)).withSelfRel());
