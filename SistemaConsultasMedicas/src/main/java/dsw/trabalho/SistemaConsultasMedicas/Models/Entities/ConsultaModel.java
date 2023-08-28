@@ -1,6 +1,10 @@
 package dsw.trabalho.SistemaConsultasMedicas.Models.Entities;
 
+import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.HoarioConsultaConverter;
+import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.TelefoneConverter;
+import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.HorarioConsulta;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -25,7 +29,10 @@ public class ConsultaModel extends RepresentationModel<ConsultaModel> implements
     private PacienteModel paciente;
 
     private String dataConsulta;
-    private String horarioConsulta;
+    @Column(name = "horarioConsulta",nullable = false)
+    @Convert(converter = HoarioConsultaConverter.class)
+    @NotNull
+    private HorarioConsulta horarioConsulta;
 
     public UUID getIdConsulta() {return id;}
 
@@ -43,7 +50,7 @@ public class ConsultaModel extends RepresentationModel<ConsultaModel> implements
 
     public void setDataConsulta(String dataConsulta) {this.dataConsulta = dataConsulta;}
 
-    public String getHorarioConsulta() {return horarioConsulta;}
+    public HorarioConsulta getHorarioConsulta() {return horarioConsulta;}
 
-    public void setHorarioConsulta(String horarioConsulta) {this.horarioConsulta = horarioConsulta;}
+    public void setHorarioConsulta(HorarioConsulta horarioConsulta) {this.horarioConsulta = horarioConsulta;}
 }
