@@ -19,4 +19,6 @@ public interface ConsultaRepository extends JpaRepository<ConsultaModel, UUID> {
 
     @Query(value = "SELECT * FROM TB_CONSULTA consulta WHERE consulta.id_paciente = :paciente", nativeQuery = true)
     public List<ConsultaModel> findByPaciente(@Param("paciente") UUID paciente);
+    @Query(value = "SELECT CONCAT(consulta.data_consulta, '', consulta.horario_consulta, '', consulta.id_medico, '') FROM TB_CONSULTA consulta WHERE consulta.id_medico = :medico", nativeQuery = true)
+    public List<String> validarData(@Param("medico") UUID medico);
 }

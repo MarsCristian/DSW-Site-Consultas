@@ -38,6 +38,7 @@ public class ConsultaController {
     public ResponseEntity<ConsultaModel> saveConsulta(@RequestBody  @Valid ConsultaRecordDto consultaRecordDto){
         var consultaModel = new ConsultaModel();
         BeanUtils.copyProperties(consultaRecordDto, consultaModel);
+        consultaRepository.validarData(consultaModel.getMedico().getIdMedico());
         return ResponseEntity.status(HttpStatus.CREATED).body(consultaRepository.save(consultaModel));//uso do http 201
     }
 
