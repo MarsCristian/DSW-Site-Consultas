@@ -1,4 +1,4 @@
-package dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects;
+package dsw.trabalho.SistemaConsultasMedicas.Models.Validators;
 
 
 import jakarta.validation.Constraint;
@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 @Constraint(validatedBy = UniqueEmailPacienteValidator.class)
 @Target(ElementType.FIELD)
-public @interface UniqueEmailPaciente {
+public @interface UniqueEmailMedico {
 
     String message() default "Email já em uso";
     Class<?>[] groups() default { };

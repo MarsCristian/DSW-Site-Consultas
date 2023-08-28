@@ -3,11 +3,10 @@ package dsw.trabalho.SistemaConsultasMedicas.Models.Entities;
 
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.CrmConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.EmailConverter;
-import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.TelefoneConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Crm;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Email;
-import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.UniqueCrm;
-import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.UniqueEmailMedico;
+import dsw.trabalho.SistemaConsultasMedicas.Models.Validators.UniqueCrm;
+import dsw.trabalho.SistemaConsultasMedicas.Models.Validators.UniqueEmailMedico;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -15,7 +14,6 @@ import org.springframework.hateoas.RepresentationModel;
 
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
