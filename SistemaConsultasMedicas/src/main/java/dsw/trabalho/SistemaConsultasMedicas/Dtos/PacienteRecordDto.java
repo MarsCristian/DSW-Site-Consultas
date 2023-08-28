@@ -7,6 +7,6 @@ public record PacienteRecordDto(@NotBlank String cpf,
                                 @NotBlank String senha,
                                 @NotBlank String telefone,
                                 @NotBlank String sexo,
-                                @NotBlank String dataNacimento)
+                                @NotBlank String dataNascimento)
 {
 }

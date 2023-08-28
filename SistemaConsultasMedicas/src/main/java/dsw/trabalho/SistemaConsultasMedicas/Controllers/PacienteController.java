@@ -26,7 +26,7 @@ public class PacienteController {
     @PostMapping("/paciente")
     public ResponseEntity<PacienteModel> savePaciente(@RequestBody @Valid PacienteRecordDto pacienteRecordDto){
         var pacienteModel = new PacienteModel();
-        BeanUtils.copyProperties(pacienteModel,pacienteModel);
+        BeanUtils.copyProperties(pacienteRecordDto,pacienteModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(pacienteRepository.save(pacienteModel));//uso do http 201
     }
 

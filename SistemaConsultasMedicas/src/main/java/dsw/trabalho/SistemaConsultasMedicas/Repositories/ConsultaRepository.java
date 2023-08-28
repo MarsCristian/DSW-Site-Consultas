@@ -2,6 +2,7 @@ package dsw.trabalho.SistemaConsultasMedicas.Repositories;
 
 import dsw.trabalho.SistemaConsultasMedicas.Models.Entities.ConsultaModel;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Entities.MedicoModel;
+import dsw.trabalho.SistemaConsultasMedicas.Models.Entities.PacienteModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,9 +14,9 @@ import java.util.UUID;
 
 @Repository
 public interface ConsultaRepository extends JpaRepository<ConsultaModel, UUID> {
-    @Query("SELECT consulta FROM TB_CONSULTA consulta WHERE consulta.id_medico = :medico")
-    public List<ConsultaModel> findByMedico(@Param("medico") Optional<MedicoModel> medico);
+    @Query(value = "SELECT * FROM TB_CONSULTA consulta WHERE consulta.medico = :medico", nativeQuery = true)
+    public List<ConsultaModel> findByMedico(@Param("medico") MedicoModel medico);
 
-//    @Query("SELECT consulta FROM TB_CONSULTA consulta WHERE consulta.id_paciente = :paciente")
-//    public List<ConsultaModel> findByPaciente(@Param("paciente") Optional<PacienteModel> paciente);
+    @Query(value = "SELECT * FROM TB_CONSULTA consulta WHERE consulta.id_paciente = :paciente", nativeQuery = true)
+    public List<ConsultaModel> findByPaciente(@Param("paciente") PacienteModel paciente);
 }
