@@ -32,7 +32,10 @@ public class PacienteModel extends RepresentationModel<PacienteModel> implements
     @NotNull
     private Email email;
     private String senha;
-    private String telefone;
+    @Column(name = "telefone")
+    @Convert(converter = TelefoneConverter.class)
+    @NotNull
+    private Telefone telefone;
     private String sexo;
     private String dataNascimento;
 
@@ -52,9 +55,9 @@ public class PacienteModel extends RepresentationModel<PacienteModel> implements
 
     public void setSenha(String senha) {this.senha = senha;}
 
-    public String getTelefone() {return telefone;}
+    public Telefone getTelefone() {return telefone;}
 
-    public void setTelefone(String telefone) {this.telefone = telefone;}
+    public void setTelefone(Telefone telefone) {this.telefone = telefone;}
 
     public String getSexo() {return sexo;}
 
