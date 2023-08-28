@@ -16,5 +16,6 @@ public class HorarioConsulta {
 
     public static String validateHorario(String horario){
         //todo montar o validate hora
+        return "aaa";
     }
 }

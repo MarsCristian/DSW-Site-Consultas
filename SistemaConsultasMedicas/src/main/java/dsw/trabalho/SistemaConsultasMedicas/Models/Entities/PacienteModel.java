@@ -7,7 +7,6 @@ import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 //import lombok.Getter;
-import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
@@ -27,12 +26,10 @@ public class PacienteModel extends RepresentationModel<PacienteModel> implements
     private UUID idPaciente;
 
     @Column(name = "cpf",unique = true,nullable = false)
-    @UniqueCpf(message = "{Unique.paciente.cpf}")
     @Convert(converter = CpfConverter.class)
     @NotNull Cpf cpf;
 
     @Column(name = "email",unique = true,nullable = false)
-    @UniqueEmailPaciente(message = "{Unique.paciente.email}")
     @Convert(converter = EmailConverter.class)
     @NotNull
     private Email email;
@@ -40,7 +37,6 @@ public class PacienteModel extends RepresentationModel<PacienteModel> implements
 
 
     @Column(name = "telefone",unique = true,nullable = false)
-    @UniqueTelefone(message = "{Unique.paciente.telefone}")
     @Convert(converter = TelefoneConverter.class)
     @NotNull
     private Telefone telefone;

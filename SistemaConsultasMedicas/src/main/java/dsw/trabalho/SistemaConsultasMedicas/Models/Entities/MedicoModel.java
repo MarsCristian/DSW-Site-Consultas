@@ -3,19 +3,14 @@ package dsw.trabalho.SistemaConsultasMedicas.Models.Entities;
 
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.CrmConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.EmailConverter;
-import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.TelefoneConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Crm;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Email;
-import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.UniqueCrm;
-import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.UniqueEmailMedico;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
 
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -29,7 +24,6 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
     private UUID idMedico;//todo trocar de string pra value object
     private String nome;
 
-    @UniqueCrm(message = "{Unique.medico.crm}")
     @Column(name = "crm",unique = true,nullable = false)
     @Convert(converter = CrmConverter.class)
     @NotNull
@@ -40,7 +34,6 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
     private String especialidade;
 
     @Column(name = "email",unique = true,nullable = false)
-    @UniqueEmailMedico(message = "{Unique.medico.email}")
     @Convert(converter = EmailConverter.class)
     @NotNull
     private Email email;
