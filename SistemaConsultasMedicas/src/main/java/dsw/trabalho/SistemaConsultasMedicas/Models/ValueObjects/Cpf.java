@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Value;
 
 @Value
-@Schema(implementation = String.class, description = "Email")
+@Schema(implementation = String.class, description = "cpf")
 public class Cpf {
     String valor;
     private int[] PESO_CPF = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
