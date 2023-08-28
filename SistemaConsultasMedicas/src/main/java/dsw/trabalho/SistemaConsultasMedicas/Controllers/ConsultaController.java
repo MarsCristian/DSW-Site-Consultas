@@ -66,10 +66,8 @@ public class ConsultaController {
 
     @GetMapping("/consultas/clientes/{id}")
     public ResponseEntity<List<ConsultaModel>> getAllConsultasByCLient(@PathVariable(value= "id") UUID id){
-        Optional<PacienteModel> p0 = pacienteRepository.findById(id);
-        PacienteModel paciente = new PacienteModel();
-        BeanUtils.copyProperties(p0, paciente);
-        List<ConsultaModel> consultaModelList = consultaRepository.findByPaciente(paciente);
+
+        List<ConsultaModel> consultaModelList = consultaRepository.findByPaciente(id);
 
         //pra cada produto, obtem o id, .add pra construir link, basicamente usa o getOneConsulta
         for(ConsultaModel consulta : consultaModelList){
@@ -81,10 +79,8 @@ public class ConsultaController {
 
     @GetMapping("/consultas/profissionais/{id}")
     public ResponseEntity<List<ConsultaModel>> getAllConsultasByDoctor(@PathVariable(value= "id") UUID id){
-        Optional<MedicoModel> m0 = medicoRepository.findById(id);
-        MedicoModel medico = new MedicoModel();
-        BeanUtils.copyProperties(m0, medico);
-        List<ConsultaModel> consultaModelList = consultaRepository.findByMedico(medico);
+
+        List<ConsultaModel> consultaModelList = consultaRepository.findByMedico(id);
 
         //pra cada produto, obtem o id, .add pra construir link, basicamente usa o getOneConsulta
         for(ConsultaModel consulta : consultaModelList){
