@@ -1,7 +1,9 @@
 package dsw.trabalho.SistemaConsultasMedicas.Models.Entities;
 
+import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.CpfConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.EmailConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.TelefoneConverter;
+import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Cpf;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Email;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Telefone;
 import jakarta.persistence.*;
@@ -25,7 +27,9 @@ public class PacienteModel extends RepresentationModel<PacienteModel> implements
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idPaciente;
-    private String cpf;
+    @Column(name = "cpf")
+    @Convert(converter = CpfConverter.class)
+    @NotNull Cpf cpf;
 
     @Column(name = "email")
     @Convert(converter = EmailConverter.class)
@@ -43,9 +47,9 @@ public class PacienteModel extends RepresentationModel<PacienteModel> implements
 
     public void setIdPaciente(UUID idPaciente) {this.idPaciente = idPaciente;}
 
-    public String getCpf() {return cpf;}
+    public Cpf getCpf() {return cpf;}
 
-    public void setCpf(String cpf) {this.cpf = cpf;}
+    public void setCpf(Cpf cpf) {this.cpf = cpf;}
 
     public Email getEmail() {return email;}
 

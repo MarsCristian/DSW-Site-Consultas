@@ -20,4 +20,6 @@ public class SistemaConsultasMedicasApplication {
 		return encoder;
 	}
 
+
+
 }

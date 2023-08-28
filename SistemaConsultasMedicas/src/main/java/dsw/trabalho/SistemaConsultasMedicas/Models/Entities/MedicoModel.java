@@ -26,7 +26,7 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
     private UUID idMedico;//todo trocar de string pra value object
     private String nome;
 
-    @Column(name = "crm")
+    @Column(name = "crm", unique = true)
     @Convert(converter = CrmConverter.class)
     @NotNull
     private Crm crm;
