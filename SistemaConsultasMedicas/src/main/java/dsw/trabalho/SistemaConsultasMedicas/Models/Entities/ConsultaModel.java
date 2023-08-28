@@ -1,9 +1,13 @@
 package dsw.trabalho.SistemaConsultasMedicas.Models.Entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.UUID;
 
 @Entity
@@ -21,7 +25,16 @@ public class ConsultaModel extends RepresentationModel<ConsultaModel> implements
     @ManyToOne
     @JoinColumn(name = "id_paciente")
     private PacienteModel paciente;
-    private String dataConsulta;
+
+
+    @NotNull
+    @ValidateDataConsulta( message = "{Validate.consulta.data}")
+    @Column(name = "data", nullable = false, unique = false)
+    private Date dataConsulta;
+
+    @NotNull
+    @ValidateDataConsulta( message = "{Validate.consulta.data}")
+    @Column(name = "hora", nullable = false, unique = false)
     private String horarioConsulta;
 
     public UUID getIdConsulta() {return id;}
