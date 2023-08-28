@@ -3,6 +3,7 @@ package dsw.trabalho.SistemaConsultasMedicas.Repositories;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Entities.ConsultaModel;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Entities.MedicoModel;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Crm;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,5 +21,13 @@ public interface MedicoRepository extends JpaRepository<MedicoModel, UUID> {
     public List<MedicoModel> findByEspecialidade(@Param("especialidade") String especialidade);
 
     @Query(value = "SELECT * FROM TB_MEDICOS medicos WHERE medicos.crm = crm", nativeQuery = true)
-    public MedicoModel findByCrm(@Param("crm") Crm crm);
+    public MedicoModel findByCrm(@Param("crm") String crm);
+
+    @Query(
+            value = "SELECT * FROM TB_MEDICOS medicos WHERE medicos.crm = crm",
+            nativeQuery = true
+    )
+    public MedicoModel findcrmquery(Crm crm);
+
+
 }

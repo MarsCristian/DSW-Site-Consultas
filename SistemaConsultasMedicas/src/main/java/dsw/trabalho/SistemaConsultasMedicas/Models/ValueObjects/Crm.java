@@ -6,7 +6,7 @@ import lombok.Value;
 import java.util.regex.Pattern;
 
 @Value
-@Schema(implementation = String.class, description = "CRM")
+@Schema(implementation = String.class, description = "crm")
 public class Crm {
     String crmNumber;
 
@@ -16,7 +16,7 @@ public class Crm {
     }
 
     private static String validateCRM(String crm) {
-        String regex = "\\d{6}CRM/[A-Z]{2}";
+        String regex = "\\d{6}CRM-[A-Z]{2}";
         Pattern pattern = Pattern.compile(regex);
 
         if(!pattern.matcher(crm).matches()){
