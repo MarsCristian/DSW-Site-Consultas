@@ -1,9 +1,11 @@
 package dsw.trabalho.SistemaConsultasMedicas.Dtos;
 
+import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record PacienteRecordDto(@NotBlank String cpf,
-                                @NotBlank String email,
+                                @NotNull Email email,
                                 @NotBlank String senha,
                                 @NotBlank String telefone,
                                 @NotBlank String sexo,
