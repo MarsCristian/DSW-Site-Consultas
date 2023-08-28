@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,11 +24,18 @@ public class MedicoController {
 
     @Autowired
     MedicoRepository medicoRepository;//ponto de injecaom
+    private final PasswordEncoder encoder;
+
+    public MedicoController(PasswordEncoder encoder, MedicoRepository medicoRepository) {
+        this.encoder = encoder;
+        this.medicoRepository = medicoRepository;
+    }
 
     @PostMapping("/profissionais") //create
     public ResponseEntity<MedicoModel> saveMedico(@RequestBody  @Valid MedicoRecordDto medicoRecordDto){
         var medicoModel = new MedicoModel();
         BeanUtils.copyProperties(medicoRecordDto,medicoModel);
+        medicoModel.setSenha(encoder.encode(medicoModel.getSenha()));
         return ResponseEntity.status(HttpStatus.CREATED).body(medicoRepository.save(medicoModel));//uso do http 201
     }
 
