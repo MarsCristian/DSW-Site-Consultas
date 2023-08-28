@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Data
 @Table(name = "TB_CONSULTA")
 public class ConsultaModel extends RepresentationModel<ConsultaModel> implements Serializable {
     //todo colocar aqui: id de medico crm, id de paciente cpf, data e hora da consulta
@@ -20,9 +19,11 @@ public class ConsultaModel extends RepresentationModel<ConsultaModel> implements
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "id_medico")
     private MedicoModel medico;
+
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "id_paciente")
     private PacienteModel paciente;
+
     private String dataConsulta;
     private String horarioConsulta;
 

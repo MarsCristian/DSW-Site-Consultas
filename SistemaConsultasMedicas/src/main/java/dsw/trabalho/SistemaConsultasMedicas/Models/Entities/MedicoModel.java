@@ -7,6 +7,7 @@ import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.TelefoneConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Crm;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Email;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.UniqueCrm;
+import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.UniqueEmailMedico;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -18,7 +19,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Data
 @Table(name = "TB_MEDICOS")
 public class MedicoModel extends RepresentationModel<MedicoModel> implements Serializable {
     //todo crm e especialidade
@@ -30,13 +30,14 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
     private String nome;
 
     @UniqueCrm(message = "{Unique.medico.crm}")
-    @Column(name = "crm")
+    @Column(name = "crm",unique = true,nullable = false)
     @Convert(converter = CrmConverter.class)
     @NotNull
     private Crm crm;
     private String especialidade;
 
-    @Column(name = "email")
+    @UniqueEmailMedico(message = "O email deve ser unico")
+    @Column(name = "email",unique = true,nullable = false)
     @Convert(converter = EmailConverter.class)
     @NotNull
     private Email email;

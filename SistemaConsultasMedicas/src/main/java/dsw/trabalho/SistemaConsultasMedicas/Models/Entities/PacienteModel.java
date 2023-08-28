@@ -3,9 +3,7 @@ package dsw.trabalho.SistemaConsultasMedicas.Models.Entities;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.CpfConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.EmailConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.TelefoneConverter;
-import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Cpf;
-import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Email;
-import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Telefone;
+import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 //import lombok.Getter;
@@ -18,7 +16,6 @@ import java.util.UUID;
 
 //
 @Entity
-@Data
 @Table(name = "TB_PACIENTES")
 public class PacienteModel extends RepresentationModel<PacienteModel> implements Serializable {
 
@@ -28,16 +25,19 @@ public class PacienteModel extends RepresentationModel<PacienteModel> implements
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idPaciente;
-    @Column(name = "cpf")
+    @UniqueCpf(message = "O cpf deve ser unico")
+    @Column(name = "cpf",unique = true,nullable = false)
     @Convert(converter = CpfConverter.class)
     @NotNull Cpf cpf;
 
-    @Column(name = "email")
+    @UniqueEmailPaciente(message = "O email deve ser unico")
+    @Column(name = "email",unique = true,nullable = false)
     @Convert(converter = EmailConverter.class)
     @NotNull
     private Email email;
     private String senha;
-    @Column(name = "telefone")
+
+    @Column(name = "telefone",unique = true,nullable = false)
     @Convert(converter = TelefoneConverter.class)
     @NotNull
     private Telefone telefone;
