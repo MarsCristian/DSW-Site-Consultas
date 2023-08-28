@@ -1,8 +1,7 @@
-package dsw.trabalho.SistemaConsultasMedicas.Models.Validators;
+package dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects;
 
 
 import dsw.trabalho.SistemaConsultasMedicas.Models.Entities.PacienteModel;
-import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Cpf;
 import dsw.trabalho.SistemaConsultasMedicas.Persistence.IPacienteDao;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

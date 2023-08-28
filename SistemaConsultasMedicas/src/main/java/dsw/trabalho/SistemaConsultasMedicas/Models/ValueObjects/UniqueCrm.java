@@ -1,4 +1,4 @@
-package dsw.trabalho.SistemaConsultasMedicas.Models.Validators;
+package dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects;
 
 
 import jakarta.validation.Constraint;
@@ -7,11 +7,11 @@ import jakarta.validation.Payload;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = UniqueEmailPacienteValidator.class)
+@Constraint(validatedBy = UniqueCrmValidator.class)
 @Target(ElementType.FIELD)
-public @interface UniqueEmailPaciente {
+public @interface UniqueCrm {
 
-    String message() default "Email já em uso";
+    String message() default "CRM já em uso";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
 }
