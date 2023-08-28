@@ -9,6 +9,7 @@ import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Email;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.UniqueCrm;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
 
 
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Data
 @Table(name = "TB_MEDICOS")
 public class MedicoModel extends RepresentationModel<MedicoModel> implements Serializable {
     //todo crm e especialidade
@@ -40,8 +42,8 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
     private Email email;
     private String senha;
 
-    @OneToMany(mappedBy = "medico")
-    private List<ConsultaModel> consultas;
+    //@OneToMany(mappedBy = "medico")
+    //private List<ConsultaModel> consultas;
 
 
     public UUID getIdMedico() {

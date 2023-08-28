@@ -5,7 +5,6 @@ import dsw.trabalho.SistemaConsultasMedicas.Dtos.MedicoRecordDto;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Entities.MedicoModel;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Crm;
 import dsw.trabalho.SistemaConsultasMedicas.Repositories.MedicoRepository;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +57,7 @@ public class MedicoController {
         return ResponseEntity.status(HttpStatus.OK).body(medico0.get());
     }
 
-    @GetMapping("/profissionais/{nome}")
+    @GetMapping("/profissionais/nome/{nome}")
     public ResponseEntity<Object> getMedicoByEspecialidade(@PathVariable(value= "nome") String nome){
         List<MedicoModel> medicoModelList = medicoRepository.findByNome(nome);
         //pra cada produto, obtem o id, .add pra construir link, basicamente usa o getOneMedico
@@ -103,11 +102,6 @@ public class MedicoController {
         return ResponseEntity.status(HttpStatus.OK).body("Deletado corretamente");//salva
     }
 
-    @GetMapping("/socorro")
-    @Transactional
-    public ResponseEntity<MedicoModel> socorro(@RequestParam Crm crm){
-        final var medicoModel = medicoRepository.findcrmquery(crm);
-        return ResponseEntity.status(HttpStatus.OK).body(medicoModel);
-    }
+
 
 }
