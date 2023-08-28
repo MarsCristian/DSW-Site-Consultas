@@ -16,11 +16,11 @@ public class ConsultaModel extends RepresentationModel<ConsultaModel> implements
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @ManyToOne(cascade=CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "id_medico")
     private MedicoModel medico;
 
-    @ManyToOne(cascade=CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "id_paciente")
     private PacienteModel paciente;
 

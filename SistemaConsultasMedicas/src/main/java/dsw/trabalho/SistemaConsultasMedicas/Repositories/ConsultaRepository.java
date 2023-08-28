@@ -14,9 +14,9 @@ import java.util.UUID;
 
 @Repository
 public interface ConsultaRepository extends JpaRepository<ConsultaModel, UUID> {
-    @Query(value = "SELECT * FROM TB_CONSULTA consulta WHERE consulta.medico = :medico", nativeQuery = true)
-    public List<ConsultaModel> findByMedico(@Param("medico") MedicoModel medico);
+    @Query(value = "SELECT * FROM TB_CONSULTA consulta WHERE consulta.id_medico = :medico", nativeQuery = true)
+    public List<ConsultaModel> findByMedico(@Param("medico") UUID medico);
 
     @Query(value = "SELECT * FROM TB_CONSULTA consulta WHERE consulta.id_paciente = :paciente", nativeQuery = true)
-    public List<ConsultaModel> findByPaciente(@Param("paciente") PacienteModel paciente);
+    public List<ConsultaModel> findByPaciente(@Param("paciente") UUID paciente);
 }
