@@ -2,8 +2,10 @@ package dsw.trabalho.SistemaConsultasMedicas.Models.Entities;
 
 
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.CrmConverter;
+import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.EmailConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.TelefoneConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Crm;
+import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Email;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.hateoas.RepresentationModel;
@@ -30,7 +32,10 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
     private Crm crm;
     private String especialidade;
 
-    private String email;
+    @Column(name = "email")
+    @Convert(converter = EmailConverter.class)
+    @NotNull
+    private Email email;
     private String senha;
 
     @OneToMany(mappedBy = "medico")
@@ -67,11 +72,11 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
         this.especialidade = especialidade;
     }
 
-    public String getEmail() {
+    public Email getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(Email email) {
         this.email = email;
     }
 
