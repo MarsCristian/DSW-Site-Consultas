@@ -7,6 +7,7 @@ import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.TelefoneConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Crm;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Email;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.UniqueCrm;
+import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.UniqueEmailMedico;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -34,9 +35,12 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
     @Convert(converter = CrmConverter.class)
     @NotNull
     private Crm crm;
+
+
     private String especialidade;
 
     @Column(name = "email")
+    @UniqueEmailMedico(message = "{Unique.medico.email}")
     @Convert(converter = EmailConverter.class)
     @NotNull
     private Email email;

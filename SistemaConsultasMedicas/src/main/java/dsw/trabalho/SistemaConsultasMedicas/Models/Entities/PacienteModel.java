@@ -3,9 +3,7 @@ package dsw.trabalho.SistemaConsultasMedicas.Models.Entities;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.CpfConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.EmailConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.TelefoneConverter;
-import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Cpf;
-import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Email;
-import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Telefone;
+import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 //import lombok.Getter;
@@ -28,19 +26,27 @@ public class PacienteModel extends RepresentationModel<PacienteModel> implements
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idPaciente;
+
     @Column(name = "cpf")
+    @UniqueCpf(message = "{Unique.paciente.cpf}")
     @Convert(converter = CpfConverter.class)
     @NotNull Cpf cpf;
 
     @Column(name = "email")
+    @UniqueEmailPaciente(message = "{Unique.paciente.email}")
     @Convert(converter = EmailConverter.class)
     @NotNull
     private Email email;
     private String senha;
+
+
     @Column(name = "telefone")
+    @UniqueTelefone(message = "{Unique.paciente.telefone}")
     @Convert(converter = TelefoneConverter.class)
     @NotNull
     private Telefone telefone;
+
+
     private String sexo;
     private String dataNascimento;
 
