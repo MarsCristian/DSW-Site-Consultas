@@ -9,7 +9,7 @@ import lombok.Value;
 import static com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat.E164;
 
 @Value
-@Schema(implementation = String.class, description = "Telefone")
+@Schema(implementation = String.class, description = "telefone")
 public class Telefone {
 
     //using Google's phone number validation library

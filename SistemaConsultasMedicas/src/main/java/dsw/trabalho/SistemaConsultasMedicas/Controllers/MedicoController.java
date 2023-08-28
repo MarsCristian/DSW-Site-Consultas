@@ -58,9 +58,9 @@ public class MedicoController {
         return ResponseEntity.status(HttpStatus.OK).body(medico0.get());
     }
 
-    @GetMapping("/profissionais/especialidades/{nome}")
+    @GetMapping("/profissionais/{nome}")
     public ResponseEntity<Object> getMedicoByEspecialidade(@PathVariable(value= "nome") String nome){
-        List<MedicoModel> medicoModelList = medicoRepository.findByEspecialidade(nome);
+        List<MedicoModel> medicoModelList = medicoRepository.findByNome(nome);
         //pra cada produto, obtem o id, .add pra construir link, basicamente usa o getOneMedico
         for(MedicoModel medico : medicoModelList){
             UUID id = medico.getIdMedico();
