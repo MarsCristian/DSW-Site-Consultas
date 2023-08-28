@@ -6,6 +6,7 @@ import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.EmailConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.TelefoneConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Crm;
 import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Email;
+import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.UniqueCrm;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.hateoas.RepresentationModel;
@@ -26,6 +27,7 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
     private UUID idMedico;//todo trocar de string pra value object
     private String nome;
 
+    @UniqueCrm(message = "{Unique.medico.crm}")
     @Column(name = "crm")
     @Convert(converter = CrmConverter.class)
     @NotNull
