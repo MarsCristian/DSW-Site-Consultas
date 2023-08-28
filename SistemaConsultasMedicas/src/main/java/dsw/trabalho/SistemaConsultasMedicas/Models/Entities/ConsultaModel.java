@@ -1,12 +1,14 @@
 package dsw.trabalho.SistemaConsultasMedicas.Models.Entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
+@Data
 @Table(name = "TB_CONSULTA")
 public class ConsultaModel extends RepresentationModel<ConsultaModel> implements Serializable {
     //todo colocar aqui: id de medico crm, id de paciente cpf, data e hora da consulta
@@ -15,10 +17,10 @@ public class ConsultaModel extends RepresentationModel<ConsultaModel> implements
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "id_medico")
     private MedicoModel medico;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "id_paciente")
     private PacienteModel paciente;
     private String dataConsulta;

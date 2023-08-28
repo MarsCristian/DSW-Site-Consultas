@@ -9,6 +9,7 @@ import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Telefone;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 //import lombok.Getter;
+import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
@@ -17,7 +18,7 @@ import java.util.UUID;
 
 //
 @Entity
-//@Getter
+@Data
 @Table(name = "TB_PACIENTES")
 public class PacienteModel extends RepresentationModel<PacienteModel> implements Serializable {
 
