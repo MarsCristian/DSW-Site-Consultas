@@ -32,7 +32,7 @@ public class PacienteController {
     }
 
 
-    @PostMapping("/paciente")
+    @PostMapping("/clientes")
     public ResponseEntity<PacienteModel> savePaciente(@RequestBody @Valid PacienteRecordDto pacienteRecordDto){
         var pacienteModel = new PacienteModel();
         BeanUtils.copyProperties(pacienteRecordDto,pacienteModel);
@@ -41,7 +41,7 @@ public class PacienteController {
     }
 
 
-    @GetMapping("/paciente")
+    @GetMapping("/clientes")
     public ResponseEntity<List<PacienteModel>> getAllPacientes(){
 
         List<PacienteModel> pacienteModelList = pacienteRepository.findAll();
@@ -55,7 +55,7 @@ public class PacienteController {
     }
 
     //todo internacionalizar mensagens
-    @GetMapping("/paciente/{id}")
+    @GetMapping("/clientes/{id}")
     public ResponseEntity<Object> getOnePaciente(@PathVariable(value= "id") UUID id){
 
         Optional<PacienteModel> paciente0 = pacienteRepository.findById(id);
@@ -68,7 +68,7 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.OK).body(paciente0.get());
     }
 
-    @PutMapping("/paciente/{id}")//upddating
+    @PutMapping("/clientes/{id}")//upddating
     public ResponseEntity<Object> updatePaciente(@PathVariable(value= "id") UUID id, @RequestBody @Valid PacienteRecordDto pacienteRecordDto) {
 
         Optional<PacienteModel> paciente0 = pacienteRepository.findById(id);
@@ -82,7 +82,7 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.OK).body(pacienteRepository.save(medicoModel));//salva
     }
 
-    @DeleteMapping("/paciente/{id}")//deleting
+    @DeleteMapping("/clientes/{id}")//deleting
     public ResponseEntity<Object> deletePaciente(@PathVariable(value= "id") UUID id) {
 
         Optional<PacienteModel> paciente0 = pacienteRepository.findById(id);
