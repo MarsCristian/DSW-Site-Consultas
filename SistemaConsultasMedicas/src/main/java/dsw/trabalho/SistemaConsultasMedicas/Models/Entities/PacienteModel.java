@@ -16,7 +16,6 @@ import java.util.UUID;
 
 //
 @Entity
-@Data
 @Table(name = "TB_PACIENTES")
 public class PacienteModel extends RepresentationModel<PacienteModel> implements Serializable {
 
@@ -27,12 +26,12 @@ public class PacienteModel extends RepresentationModel<PacienteModel> implements
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idPaciente;
 
-    @Column(name = "cpf")
+    @Column(name = "cpf",unique = true,nullable = false)
     @UniqueCpf(message = "{Unique.paciente.cpf}")
     @Convert(converter = CpfConverter.class)
     @NotNull Cpf cpf;
 
-    @Column(name = "email")
+    @Column(name = "email",unique = true,nullable = false)
     @UniqueEmailPaciente(message = "{Unique.paciente.email}")
     @Convert(converter = EmailConverter.class)
     @NotNull
@@ -40,7 +39,7 @@ public class PacienteModel extends RepresentationModel<PacienteModel> implements
     private String senha;
 
 
-    @Column(name = "telefone")
+    @Column(name = "telefone",unique = true,nullable = false)
     @UniqueTelefone(message = "{Unique.paciente.telefone}")
     @Convert(converter = TelefoneConverter.class)
     @NotNull

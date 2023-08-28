@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Data
 @Table(name = "TB_MEDICOS")
 public class MedicoModel extends RepresentationModel<MedicoModel> implements Serializable {
     //todo crm e especialidade
@@ -31,15 +30,16 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
     private String nome;
 
     @UniqueCrm(message = "{Unique.medico.crm}")
-    @Column(name = "crm")
+    @Column(name = "crm",unique = true,nullable = false)
     @Convert(converter = CrmConverter.class)
     @NotNull
+
     private Crm crm;
 
 
     private String especialidade;
 
-    @Column(name = "email")
+    @Column(name = "email",unique = true,nullable = false)
     @UniqueEmailMedico(message = "{Unique.medico.email}")
     @Convert(converter = EmailConverter.class)
     @NotNull

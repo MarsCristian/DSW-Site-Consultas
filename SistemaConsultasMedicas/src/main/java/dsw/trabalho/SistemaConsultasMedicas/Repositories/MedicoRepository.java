@@ -20,14 +20,10 @@ public interface MedicoRepository extends JpaRepository<MedicoModel, UUID> {
     @Query(value = "SELECT * FROM TB_MEDICOS medicos WHERE medicos.nome = :nome", nativeQuery = true)
     public List<MedicoModel> findByNome(@Param("nome") String nome);
 
-    @Query(value = "SELECT * FROM TB_MEDICOS medicos WHERE medicos.crm = crm", nativeQuery = true)
-    public MedicoModel findByCrm(@Param("crm") String crm);
+    @Query(value = "SELECT * FROM TB_MEDICOS medicos WHERE medicos.crm = :crm", nativeQuery = true)
+    public MedicoModel findByCrm(@Param("crm") Crm crm);
 
-    @Query(
-            value = "SELECT * FROM TB_MEDICOS medicos WHERE medicos.crm = crm",
-            nativeQuery = true
-    )
-    public MedicoModel findcrmquery(Crm crm);
+
 
 
 }
