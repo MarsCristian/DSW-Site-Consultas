@@ -1,4 +1,4 @@
-package dsw.trabalho.SistemaConsultasMedicas.Models.Validators;
+package dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects;
 
 
 import jakarta.validation.Constraint;
