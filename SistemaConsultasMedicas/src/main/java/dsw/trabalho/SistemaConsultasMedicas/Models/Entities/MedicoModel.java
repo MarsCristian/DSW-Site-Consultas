@@ -1,7 +1,12 @@
 package dsw.trabalho.SistemaConsultasMedicas.Models.Entities;
 
 
+import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.CrmConverter;
+import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.EmailConverter;
+import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Crm;
+import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Email;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.hateoas.RepresentationModel;
 
 
@@ -18,11 +23,24 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idMedico;//todo trocar de string pra value object
     private String nome;
-    private String crm;
+
+    @Column(name = "crm",unique = true,nullable = false)
+    @Convert(converter = CrmConverter.class)
+    @NotNull
+
+    private Crm crm;
+
+
     private String especialidade;
 
-    private String email;
+    @Column(name = "email",unique = true,nullable = false)
+    @Convert(converter = EmailConverter.class)
+    @NotNull
+    private Email email;
     private String senha;
+
+    //@OneToMany(mappedBy = "medico")
+    //private List<ConsultaModel> consultas;
 
 
     public UUID getIdMedico() {
@@ -41,11 +59,9 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
         this.nome = nome;
     }
 
-    public String getCrm() {
-        return crm;
-    }
+    public Crm getCrm() {return crm;}
 
-    public void setCrm(String crm) {
+    public void setCrm(Crm crm) {
         this.crm = crm;
     }
 
@@ -57,11 +73,11 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
         this.especialidade = especialidade;
     }
 
-    public String getEmail() {
+    public Email getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(Email email) {
         this.email = email;
     }
 
@@ -72,4 +88,6 @@ public class MedicoModel extends RepresentationModel<MedicoModel> implements Ser
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+
 }

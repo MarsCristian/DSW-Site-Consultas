@@ -4,8 +4,10 @@ package dsw.trabalho.SistemaConsultasMedicas.Controllers;
 import dsw.trabalho.SistemaConsultasMedicas.Dtos.ConsultaRecordDto;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Entities.ConsultaModel;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Entities.MedicoModel;
+import dsw.trabalho.SistemaConsultasMedicas.Models.Entities.PacienteModel;
 import dsw.trabalho.SistemaConsultasMedicas.Repositories.ConsultaRepository;
 import dsw.trabalho.SistemaConsultasMedicas.Repositories.MedicoRepository;
+import dsw.trabalho.SistemaConsultasMedicas.Repositories.PacienteRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +31,14 @@ public class ConsultaController {
     @Autowired
     MedicoRepository medicoRepository; //ponto de injecao
 
+    @Autowired
+    PacienteRepository pacienteRepository; //ponto de injecao
+
     @PostMapping("/consultas") //create
     public ResponseEntity<ConsultaModel> saveConsulta(@RequestBody  @Valid ConsultaRecordDto consultaRecordDto){
         var consultaModel = new ConsultaModel();
         BeanUtils.copyProperties(consultaRecordDto, consultaModel);
+        consultaRepository.validarData(consultaModel.getMedico().getIdMedico());
         return ResponseEntity.status(HttpStatus.CREATED).body(consultaRepository.save(consultaModel));//uso do http 201
     }
 
@@ -59,22 +65,23 @@ public class ConsultaController {
         return ResponseEntity.status(HttpStatus.OK).body(consulta0.get());
     }
 
-//    @GetMapping("/consultas/clientes/{id}")
-//    public ResponseEntity<List<ConsultaModel>> getAllConsultasByClient(){
-//        List<ConsultaModel> consultaModelList = consultaRepository.findAll();
-//
-//        //pra cada produto, obtem o id, .add pra construir link, basicamente usa o getOneConsulta
-//        for(ConsultaModel consulta : consultaModelList){
-//            UUID id = consulta.getIdConsulta();
-//            consulta.add(linkTo(methodOn(ConsultaController.class).getOneConsulta(id)).withSelfRel());
-//        }
-//        return ResponseEntity.status(HttpStatus.OK).body(consultaModelList);
-//    }
+    @GetMapping("/consultas/clientes/{id}")
+    public ResponseEntity<List<ConsultaModel>> getAllConsultasByCLient(@PathVariable(value= "id") UUID id){
+
+        List<ConsultaModel> consultaModelList = consultaRepository.findByPaciente(id);
+
+        //pra cada produto, obtem o id, .add pra construir link, basicamente usa o getOneConsulta
+        for(ConsultaModel consulta : consultaModelList){
+            UUID id_consulta = consulta.getIdConsulta();
+            consulta.add(linkTo(methodOn(ConsultaController.class).getOneConsulta(id_consulta)).withSelfRel());
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(consultaModelList);
+    }
 
     @GetMapping("/consultas/profissionais/{id}")
     public ResponseEntity<List<ConsultaModel>> getAllConsultasByDoctor(@PathVariable(value= "id") UUID id){
-        Optional<MedicoModel> medico = medicoRepository.findById(id);
-        List<ConsultaModel> consultaModelList = consultaRepository.findByMedico(medico);
+
+        List<ConsultaModel> consultaModelList = consultaRepository.findByMedico(id);
 
         //pra cada produto, obtem o id, .add pra construir link, basicamente usa o getOneConsulta
         for(ConsultaModel consulta : consultaModelList){

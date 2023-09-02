@@ -1,7 +1,9 @@
 package dsw.trabalho.SistemaConsultasMedicas.Models.Entities;
 
+import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.CpfConverter;
+import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.EmailConverter;
 import dsw.trabalho.SistemaConsultasMedicas.Models.Converter.TelefoneConverter;
-import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.Telefone;
+import dsw.trabalho.SistemaConsultasMedicas.Models.ValueObjects.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 //import lombok.Getter;
@@ -13,7 +15,6 @@ import java.util.UUID;
 
 //
 @Entity
-//@Getter
 @Table(name = "TB_PACIENTES")
 public class PacienteModel extends RepresentationModel<PacienteModel> implements Serializable {
 
@@ -23,10 +24,24 @@ public class PacienteModel extends RepresentationModel<PacienteModel> implements
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idPaciente;
-    private String cpf;
-    private String email;
+
+    @Column(name = "cpf",unique = true,nullable = false)
+    @Convert(converter = CpfConverter.class)
+    @NotNull Cpf cpf;
+
+    @Column(name = "email",unique = true,nullable = false)
+    @Convert(converter = EmailConverter.class)
+    @NotNull
+    private Email email;
     private String senha;
-    private String telefone;
+
+
+    @Column(name = "telefone",unique = true,nullable = false)
+    @Convert(converter = TelefoneConverter.class)
+    @NotNull
+    private Telefone telefone;
+
+
     private String sexo;
     private String dataNascimento;
 
@@ -34,21 +49,21 @@ public class PacienteModel extends RepresentationModel<PacienteModel> implements
 
     public void setIdPaciente(UUID idPaciente) {this.idPaciente = idPaciente;}
 
-    public String getCpf() {return cpf;}
+    public Cpf getCpf() {return cpf;}
 
-    public void setCpf(String cpf) {this.cpf = cpf;}
+    public void setCpf(Cpf cpf) {this.cpf = cpf;}
 
-    public String getEmail() {return email;}
+    public Email getEmail() {return email;}
 
-    public void setEmail(String email) {this.email = email;}
+    public void setEmail(Email email) {this.email = email;}
 
     public String getSenha() {return senha;}
 
     public void setSenha(String senha) {this.senha = senha;}
 
-    public String getTelefone() {return telefone;}
+    public Telefone getTelefone() {return telefone;}
 
-    public void setTelefone(String telefone) {this.telefone = telefone;}
+    public void setTelefone(Telefone telefone) {this.telefone = telefone;}
 
     public String getSexo() {return sexo;}
 

@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,15 +24,24 @@ public class PacienteController {
     @Autowired
     PacienteRepository pacienteRepository;
 
-    @PostMapping("/paciente")
+    private final PasswordEncoder encoder;
+
+    public PacienteController(PasswordEncoder encoder, PacienteRepository pacienteRepository) {
+        this.encoder = encoder;
+        this.pacienteRepository = pacienteRepository;
+    }
+
+
+    @PostMapping("/clientes")
     public ResponseEntity<PacienteModel> savePaciente(@RequestBody @Valid PacienteRecordDto pacienteRecordDto){
         var pacienteModel = new PacienteModel();
-        BeanUtils.copyProperties(pacienteModel,pacienteModel);
+        BeanUtils.copyProperties(pacienteRecordDto,pacienteModel);
+        pacienteModel.setSenha(encoder.encode(pacienteModel.getSenha()));
         return ResponseEntity.status(HttpStatus.CREATED).body(pacienteRepository.save(pacienteModel));//uso do http 201
     }
 
 
-    @GetMapping("/paciente")
+    @GetMapping("/clientes")
     public ResponseEntity<List<PacienteModel>> getAllPacientes(){
 
         List<PacienteModel> pacienteModelList = pacienteRepository.findAll();
@@ -45,7 +55,7 @@ public class PacienteController {
     }
 
     //todo internacionalizar mensagens
-    @GetMapping("/paciente/{id}")
+    @GetMapping("/clientes/{id}")
     public ResponseEntity<Object> getOnePaciente(@PathVariable(value= "id") UUID id){
 
         Optional<PacienteModel> paciente0 = pacienteRepository.findById(id);
@@ -58,7 +68,7 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.OK).body(paciente0.get());
     }
 
-    @PutMapping("/paciente/{id}")//upddating
+    @PutMapping("/clientes/{id}")//upddating
     public ResponseEntity<Object> updatePaciente(@PathVariable(value= "id") UUID id, @RequestBody @Valid PacienteRecordDto pacienteRecordDto) {
 
         Optional<PacienteModel> paciente0 = pacienteRepository.findById(id);
@@ -72,7 +82,7 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.OK).body(pacienteRepository.save(medicoModel));//salva
     }
 
-    @DeleteMapping("/paciente/{id}")//deleting
+    @DeleteMapping("/clientes/{id}")//deleting
     public ResponseEntity<Object> deletePaciente(@PathVariable(value= "id") UUID id) {
 
         Optional<PacienteModel> paciente0 = pacienteRepository.findById(id);
